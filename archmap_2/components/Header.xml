@@ -1,0 +1,40 @@
+<div style="height:100%;">
+
+	   
+	   <!-->
+	   <ul id="header-menu">
+		   <li>
+		   		<a href="/archmap2/Essay/EssayStudio">Mapping Gothic France</a>
+		   </li>
+		   <li>
+		   		<a href="/archmap2/Essay/EssayStudio">Essays</a>
+		   </li>
+	   </ul>
+	   -->
+	   
+	  
+	   
+	   <!-- will not be visible when page is ready -->
+	   <!--
+	   	<div id="loginDialog">
+	   		<form id="loginPanel" title="Login">
+	   			<div>
+	   				Name
+	   				<select id="loginSelect" name="name">
+	   				</select>
+	   			</div>
+	   			<div>
+	   				Password
+	   				<input id="passwordField" type="text" name="pword" />
+	   			</div>
+	   		
+	   		</form>
+	   	</div>
+	   	-->
+	   <!-- will not be visible when page is ready -->
+	
+	
+	
+	</div>
+
+</div>

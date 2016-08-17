@@ -1,0 +1,14 @@
+#RewriteEngine on
+
+#RewriteRule ^comp/(.*) codebase/appdev/main1.php?componentName=$1 [L]
+#RewriteRule ^requestHandlers/?(.*) codebase/requestHandlers/$1 [L]
+#RewriteRule ^phpPages/?(.*) codebase/phpPages/$1 [L]
+
+# make some exceptions for media etc.
+#RewriteRule ^media/?(.*) media/$1 [L]
+#RewriteRule ^docs/?(.*) docs/$1 [L]
+#RewriteRule ^swf/?(.*) swf/$1 [L]
+#RewriteRule ^dropzone/?(.*) dropzone/$1 [L]
+#RewriteRule ^codebase/?(.*) codebase/$1 [L]
+# Catch-all else and send it to appdev
+#RewriteRule ^(.*) codebase/$1 [L]

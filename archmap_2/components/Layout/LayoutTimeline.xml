@@ -1,0 +1,16 @@
+<div class="layout timeline">
+
+	<script src="/archmap/appdev/components/Layout/LayoutTimeline.js">
+	</script>
+	
+	<div>
+		<Timeline.Timeline dataSource="{dataSource}" />
+	</div>
+	
+	<div id="map_box" title="Map" >
+		<MapView.MapView dataSource="{dataSource}" />
+	</div>
+	
+	<Collection.CollectionTray />
+
+</div>

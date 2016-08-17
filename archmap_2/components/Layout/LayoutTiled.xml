@@ -1,0 +1,37 @@
+<div class="layout tiled">
+
+	<script src="components/Layout/LayoutTiled.js">
+	</script>
+	
+	<table width="100%" height="200px" style="margin:-2; padding:0; background-color: #EEF;">
+		<tr style="height: 200px;">
+		
+			<td width="30%">
+				<MapView.MapView dataSource="{dataSource}" />
+			</td>
+			<td height="200px">
+				<Timeline.Timeline dataSource="{dataSource}" />
+			</td>
+			<td width="200px">
+				<ChartView dataSource="{dataSource}" />
+			</td>
+		
+		</tr>
+	</table>
+	
+	
+	<div style="width: 100%;margin: auto;padding:0; display:table; ">
+		<div id="row" style="display: table-row;" >
+			<div id="leftCol" style="width:30%;padding:1em;background: #EEF;display: table-cell;">
+				<ListView dataSource="{dataSource}" renderTpl="myrender.tpl" /> 
+			</div>
+			<div id="rightCol" style="padding:1em; background: white; display:table-cell; ">
+				<div id="profile_holder">
+					<Profile.Profile dataSource="{dataSource}" model="{model}" />
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>

@@ -1,0 +1,21 @@
+<div class="homescreen">
+
+	
+	<div class="site-plaque bourbonnais">
+	
+	</div>
+	
+	<div class="site-plaque mgf" onClick="getPageById('Building', 1063);">
+	
+	</div>
+	
+	<div class="site-plaque istanbul">
+	
+	
+	</div>
+	
+	<div class="site-plaque rockcut-temples">
+	
+	</div>
+
+</div>

@@ -1,0 +1,101 @@
+<div class="profile model-identity relparent entity-Person model_id-{model.id}">
+		
+	
+	<div class="body">
+		<div class="body-tray">
+		
+			<table>
+				<tr>
+					<td valign="top">
+						<div class="related-item-section  entity-Image relationship relationship-depiction">
+							<h4><a href="#"><span class="entitylabel">Images</span></a></h4>
+							<ul class="related-items-listview entity-Image relationship relationship-depiction"></ul>
+						</div>
+					
+						<div class="related-item-section  entity-Image relationship relationship-uploaded">
+							<h4><a href="#"><span class="entitylabel">Images</span></a></h4>
+							<div>
+								<ul class="related-items-listview entity-Image relationship relationship-uploaded"></ul>
+								<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+							</div>
+						</div>
+					
+					
+					</td>
+				
+					<td valign="top">
+						<h3>{model.name}</h3>
+						
+						<div class="fieldname-descript" style="font-size: 12;width:100%">	
+							{model.descript}  
+						</div>
+						
+						
+						<!-- related items -->
+							<div class="related-items-panel" >
+								
+			
+								<div class="related-item-section  entity-Publication relationship relationship-author">
+									<h4><a href="#"><span class="entitylabel">Publications</span> (as author)</a></h4>
+									<div>
+										<ul class="related-items-listview entity-Publication  relationship relationship-author"></ul>
+										<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+									</div>
+								</div>
+			
+								<div class="related-item-section  entity-NoteCard relationship relationship-author">
+									<h4><a href="#"><span class="entitylabel">Note Cards</span></a></h4>
+									<div>
+										<ul class="related-items-listview entity-NoteCard   relationship relationship-author"> </ul>
+										<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+									</div>
+								</div>
+								
+				
+																
+								
+								<div class="related-item-section  entity-Building relationship">
+									<h4><a href="#"><span class="entitylabel">Buildings</span></a></h4>
+									<div>
+										<ul class="related-items-listview entity-Building"></ul>
+										<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+									</div>
+								</div>
+								
+
+
+							</div>
+
+
+									
+						
+						
+						
+						
+						
+					</td>
+				
+				</tr>
+			</table>
+			
+			
+			
+			
+			
+			
+			
+
+			
+			
+			
+			
+			
+		</div>
+	</div>
+	
+	<div class="footer">
+	:{model.lat}: created: {model.createdate}, last edited:  {model.editdate}
+	</div>
+	
+
+</div>

@@ -1,0 +1,27 @@
+<div>
+
+
+	<script src="components/Profile/Profile.js">
+	</script>
+
+	Monograph ( {greeting} )
+	<h2>{model.name}</h2>
+
+	<div>
+		{model.beg_year}
+	</div>
+	<div style="float: left; margin-right: 15; margin-bottom:5;">
+		<img src="{model.posterURL}" />
+	</div>
+	<div>
+		{model.descriptLinked}
+	</div>
+	<div style="color:gray;font-size:9;">
+		
+		<br />
+		id={model.id}
+	</div>
+	<div id="results">
+	
+	</div>
+		</div>

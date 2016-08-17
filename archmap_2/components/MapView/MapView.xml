@@ -1,0 +1,8 @@
+	<div> 
+		<script src="/archstor_codebase/components/MapView/MapView.js" type="text/javascript">
+		
+		</script>
+		<script src="/archstor_codebase/components/MapView/MapView-xml.js" type="text/javascript">
+		</script>
+ 		<div class="full-map" id="map_canvas"></div>
+	</div>

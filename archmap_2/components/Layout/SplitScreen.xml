@@ -1,0 +1,16 @@
+<div class="layout splitscreen">
+
+	<script src="/archmap/appdev/components/Layout/SplitScreen.js">
+	</script>
+	
+	<div>
+		<MapView.MapView dataSource="{dataSource}" />
+	</div>
+	
+	<div id="timeline_box" title="Timeline">
+		<Timeline.Timeline dataSource="{dataSource}"   />	
+	</div>
+	
+	<Collection.CollectionTray />
+	
+</div>

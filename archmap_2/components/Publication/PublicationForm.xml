@@ -1,0 +1,354 @@
+<form class="model-identity relparent body model-form entity-Publication model_id-{model.id}">
+	<h2>Publication</h2>
+	<script>
+	
+	
+	   
+		$(function() {
+			var model = dataStore.getModel("Publication", {model.id}, modelUpdated);
+			
+			$("#pubtype").val("{pubtypeName}");
+			setPubtype("{pubtypeName}");
+			
+			$("#pubtype").change (function() {
+				var sel = $(this).val() ;
+				
+				changePubtype(sel);
+				
+				
+			});
+			
+			
+			checkIsCatalog();
+			
+			
+				
+			$(".done-edit").click( function(event)  {
+				event.preventDefault();
+				var formEl = $("form.model-form.model-identity.entity-Publication.model_id-{model.id}");
+				alert(formEl.serialize());
+			
+			});
+			
+			var form = $('.model-form.model-identity.entity-Publication.model_id-{model.id}');
+
+			
+			var inputs = form.find('div.editable input');
+						
+			$.each(inputs, function() {	
+				set_behavior_of_input_element($(this));
+			});
+			
+			
+			
+			//getAuthors();
+			
+			
+		});
+		
+		function modelUpdated(model) {
+			logit('model updated! -> '+ model.attrs.name);
+		}
+		
+		function getAuthors() {
+			
+			var form = $('.model-form');
+			alert('PublicationForm::'+form.attr('class'));
+			var ident = getIdent(form);
+			
+			alert(ident.entity + ': ' + ident.id);
+		
+		}
+		
+		
+		function checkIsCatalog() {
+			var model = dataStore.getModel("Publication", {model.id});
+		
+			if(model) {
+				if (model.attrs.isCatalog) {
+					$('.fieldname-isCatalog > input').attr("checked", true);
+				}
+			}
+			$('.fieldname-isCatalog > input').change(function() {
+				model.setAndSave('isCatalog', $(this).attr("checked"));
+			});
+			
+		}
+		
+		function changePubtype(pubtypeName) {
+			var model = dataStore.getModel("Publication", {model.id});
+			if(model) {
+				model.setAndSave('pubtypeName', pubtypeName);
+			} else {
+				logit('PublicationForm::setPubtype - no model');
+			}
+			
+			 setPubtype(pubtypeName);
+		}
+		function setPubtype(pubtypeName) {
+						
+			//dataStore.saveChange("Publication", {model.id}, )
+			
+			var basicLabel = $("#basic_info").first().find("legend");
+			basicLabel.text(pubtypeName);
+			
+			
+			$(".EditedBook").hide();
+			$(".BookSection").hide();
+			$(".JournalArticle").hide('slow');
+			
+			switch (pubtypeName) {
+			
+				case "Book":
+					
+					$(".BookSection").hide();
+					$(".Book").show('slow');
+					$(".chapters").show('slow');
+					break;
+					
+				case "EditedBook":
+					
+					$(".BookSection").hide();
+					$(".EditedBook").show('slow');
+					$(".chapters").show('slow');
+					break;
+					
+				case "BookSection":
+					$(".Book").hide('slow');
+					$(".BookSection").show('slow');
+					
+					
+					//$.getJSON('/archmap2/api', 
+					//	{'request':'getParent', entity:"Publication", id:{model.id}}, 
+					//	getParent_Callback);
+					break;
+					
+				case "JournalArticle":
+					$(".Book").hide();
+					$(".BookSection").hide();
+					$(".JournalArticle").show('slow');
+					break;
+					
+			
+			}
+			
+			
+			
+			
+		}
+	
+
+		
+
+	</script>	
+	
+	
+	
+	
+	<select  id="pubtype" class="form-option" name="pubtype">
+		<option value="Book">Book</option>
+		<option value="EditedBook">Edited Book</option>
+		<option value="BookSection">Book Section</option>
+		<option value="JournalArticle">Journal Article</option>
+	</select>
+	<li class="Book model-identity entity-Publication model_id-{model.id} fieldname-pages">
+		<label>Catalog</label><div class="editable formfield number entity-Publication model_id-{model.id} fieldname-isCatalog"><input  type="checkbox"  /></div>
+	</li>
+
+		
+	
+	<div class="form-fieldsets">
+		
+		<fieldset id="basic_info" >
+			<legend>BasicInfo</legend>
+			
+			
+			<li class="model-identity entity-Publication model_id-{model.id} fieldname-name">
+				<label>Title</label><div class="editable formfield entity-Publication model_id-{model.id} fieldname-name"><input value="{model.name}" /></div>
+			</li>
+			<li class="Book model-identity entity-Publication model_id-{model.id} fieldname-date">
+				<label>Year</label><div class="editable formfield number entity-Publication model_id-{model.id} fieldname-date"><input value="{model.date}" /></div>
+			</li>
+			<li class="model-identity entity-Publication model_id-{model.id} fieldname-pages">
+				<label>Pages</label><div class="editable formfield number entity-Publication model_id-{model.id} fieldname-pages"><input value="{model.pages}" /></div>
+			</li>
+			
+			<li class="Book model-identity entity-Publication model_id-{model.id} fieldname-volume">
+				<label>Volume</label><div class="editable formfield number entity-Publication model_id-{model.id} fieldname-volume"><input value="{model.volume}" /></div>
+			</li>
+			
+
+			
+			
+						
+		</fieldset>
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		<fieldset class="EditedBook">
+			<legend>Editors</legend>
+				
+				<div>
+					<ul class="entity-Person relationship relationship-editor"> 
+						<qrows select="p.*" from="person p, z_related_entities z" where="(z.from_entity_id=60 AND z.from_id={model.id} AND z.to_entity_id=50 AND z.relationship='author' AND p.id=z.to_id) || (z.to_entity_id=60 AND z.to_id={model.id} AND z.from_entity_id=50 AND z.relationship='editor' AND p.id=z.from_id) ">
+							<li class="model-identity entity-Person model_id-{model.id}">
+								<label>Editor</label> <button  type="button" class="ul-button2 func-deleteItem">-</button> <span class="fieldname-name">{model.name}</span>
+							</li>
+						</qrows>
+					</ul>
+					<li>
+						<label>Editor</label> <button  type="button" class="ul-button2 func-addItem">+</button>					
+					</li>
+				</div>
+			
+		</fieldset>
+		
+
+
+	
+		<fieldset class="Book BookSection JournalArticle">
+			<legend>Authors</legend>
+				
+				<div>
+					<ul class="entity-Person relationship relationship-author"> 
+						<qrows select="p.*" from="person p, z_related_entities z" where="(z.from_entity_id=60 AND z.from_id={model.id} AND z.to_entity_id=50 AND z.relationship='author' AND p.id=z.to_id) || (z.to_entity_id=60 AND z.to_id={model.id} AND z.from_entity_id=50 AND z.relationship='author' AND p.id=z.from_id) ">
+							<li class="profileLink model-identity entity-Person model_id-{model.id}">
+								<label>Author</label> <button  type="button" class="ul-button2 func-deleteItem">-</button> <span class="fieldname-name">{model.name}</span>
+							</li>
+						</qrows>
+					</ul>
+					<li>
+						<label>Author</label> <button  type="button" class="ul-button2 func-addItem">+</button>					
+					</li>
+				</div>
+			
+		</fieldset>
+		
+
+	
+		
+	
+		<fieldset class="BookSection">
+			<legend>Section Of:</legend>
+			
+				<div>
+					<ul class="entity-Publication relationship relationship-parent"> 
+						<qrows select="p.*" from="publication p, z_related_entities z" where="z.from_entity_id=60 AND z.to_entity_id=60 AND z.to_id={model.id} AND z.relationship='parent' AND p.id=z.from_id">
+							<li class="profileLink model-identity entity-Publication model_id-{model.id}">
+								<label>Book</label> <button  type="button" class="ul-button2 func-deleteItem">-</button> <span class="fieldname-name">{model.name}</span>
+							</li>
+						</qrows>
+					</ul>
+					<li>
+						<label>Book</label> <button  type="button" class="ul-button2 func-addItem">+</button>					
+					</li>
+				</div>
+			
+		</fieldset>
+		
+
+
+
+		
+		<fieldset class="Book EditedBook">
+
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-publisher">
+					<label>Publisher</label><div class="editable formfield  entity-Publication model_id-{model.id} fieldname-publisher"><input value="{model.publisher}" /></div>
+				</li>
+				
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-location">
+					<label>City</label><div class="editable formfield suggestible-fillfield entity-Publication model_id-{model.id} fieldname-location"><input value="{model.location}" /></div>
+				</li>
+		
+		</fieldset>
+		
+		
+	
+	
+	
+	
+		<!-- JOURNAL INFO -->
+		<fieldset class="JournalArticle">
+			<legend>Journal Issue</legend>
+				
+				<ul class="entity-Publication relationship relationship-parent"></ul>
+				
+				<li class="model-identity entity-Publication model_id-{model.parent.id}" >
+					<label>Journal Title</label><input name="Journal-name suggestible" value="{model.parent.name}" />
+				</li>
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-volume">
+					<label>Volume</label><div class="editable formfield number entity-Publication model_id-{model.id} fieldname-volume"><input value="{model.volume}" /></div>
+				</li>
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-issue">
+					<label>Issue</label><div class="editable formfield number entity-Publication model_id-{model.id} fieldname-issue"><input value="{model.issue}" /></div>
+				</li>
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-date">
+					<label>Year</label><div class="editable formfield number entity-Publication model_id-{model.id} fieldname-date"><input value="{model.date}" /></div>
+				</li>
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-url">
+					<label>URL</label><div class="editable formfield entity-Publication model_id-{model.id} fieldname-url"><input value="{model.url}" /></div>
+				</li>
+		</fieldset>
+	
+	
+		<!--
+		<fieldset class="none">
+			<legend>Keywords</legend>
+				<div class="keyword-form-item">
+					<label>Keyword</label>	<input name="keyword" class="keyword" /><button   type="button" class="remove-item">-</button>
+				</div>
+				
+				<div class="form-button-set">
+					<button  type="button" class="add-form-item">+</button>
+				</div>
+		</fieldset>
+		-->
+	
+	
+		<fieldset class="Book EditedBook">
+			<legend>Cataloging</legend>
+				
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-ISBN_ISSN">
+					<label>ISBN</label><div class="editable formfield  entity-Publication model_id-{model.id} fieldname-ISBN_ISSN"><input value="{model.ISBN_ISSN}" /></div>
+				</li>
+				
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-LCCN">
+					<label>LCCN</label><div class="editable formfield suggestible-fillfield entity-Publication model_id-{model.id} fieldname-LCCN"><input value="{model.LCCN}" /></div>
+				</li>
+				
+				<li class="model-identity entity-Publication model_id-{model.id} fieldname-callnumber">
+					<label>CU Call Number</label><div class="editable formfield suggestible-fillfield entity-Publication model_id-{model.id} fieldname-callnumber"><input value="{model.callnumber}" /></div>
+				</li>
+				
+		</fieldset>
+
+		<fieldset class="Book EditedBook">
+			<legend>Chapters:</legend>
+			
+				<div>
+					<ul class="entity-Publication relationship relationship-child"> 
+						<qrows select="p.*" from="publication p, z_related_entities z" where="z.from_entity_id=60 AND z.from_id={model.id} AND z.to_entity_id=60  AND z.relationship='parent' AND p.id=z.to_id">
+							<li class="profileLink model-identity entity-Publication model_id-{model.id}">
+								<label>Chapter</label> <button  type="button" class="ul-button2 func-deleteItem">-</button> <span class="fieldname-name">{model.name}</span>
+							</li>
+						</qrows>
+					</ul>
+					<li>
+						<label>Chapter</label> <button  type="button" class="ul-button2 func-addItem">+</button>					
+					</li>
+				</div>
+		</fieldset>
+	</div>
+
+</form>

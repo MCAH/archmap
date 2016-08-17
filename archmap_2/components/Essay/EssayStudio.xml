@@ -1,0 +1,50 @@
+<div id="stage-content-table" >
+
+
+	<div id="stage-content-table-row">
+		
+		
+		
+		<div id="primary-nav" class="stage-height stage-content-table-cell">
+	
+		
+			<div id="primary-nav-content">
+			
+				MY ESSAYS
+			
+				<ul class="entity-Essay">
+				
+			
+				</ul>
+			
+					
+				<div class="function-menu ">
+					<div class="ul-button func-addItem">
+					+
+					</div>
+					<div class="ul-button func-deleteItem">
+					-
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		
+		
+		
+		
+	
+		
+	
+		<div id="main-content" class="stage-content-table-cell ">
+		
+		
+		
+		</div>
+
+	</div>
+
+</div>
+
+

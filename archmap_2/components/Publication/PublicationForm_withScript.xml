@@ -1,0 +1,368 @@
+<form class="model-form">
+	<script>
+	    
+		$(function() {
+			alert("old form");
+			setPubtype("Book");
+			
+			$(".form-fieldsets").sortable();
+			
+			$(".remove-item").click(function(event) {
+				event.preventDefault();
+				$(this).parent().remove();
+				});
+			
+			$(".add-form-item").click( function(event) {
+					event.preventDefault();
+					var el = $(this).parent().prev();
+					el.clone(true).insertAfter(el);
+					
+			
+				}
+			
+			);
+			
+			// set up select for pub type
+			$("#pubtype").change (function() {
+				var sel = $(this).find(":selected").text() ;
+				
+				setPubtype(sel);
+				
+			});
+			
+			
+			$("input")
+				.keyup(inputField_keyup)
+				.focus(select_item )
+				.blur( function() {
+					 $(".suggestionChoices").remove();
+				});
+			
+		});
+		
+		
+								
+		function select_item() {
+		
+			if ($(this).hasClass("selected")) return;
+		
+			$(".selected").each( function () {
+				//deselect_item2($(this));
+				if ($(this).find("input")) {
+					$(this).find("input").blur();
+				}
+				
+			});
+			
+			$(".selected").removeClass('selected');
+
+			$(this).addClass("selected");
+			
+							
+		}
+
+		function inputField_keyup(e) {
+			delayedSuggestion();
+			
+			if (!e.which) inlineEditing_restore(p);
+			if (event.which == '13') {
+				$(this).blur();
+			 	
+			}
+		}
+
+		function delayedSuggestion() {
+			if (window.searchTimeout)
+				clearTimeout(window.searchTimeout);
+			window.searchTimeout = setTimeout(getSuggestionsFor, 500);
+		}
+		function getSuggestionsFor() {
+			
+			
+			// The input field name determines the className the enitiy field.	
+			// For example: <INPUT name="Publication-publisher" />		
+			
+			var el = $(".selected");
+			var inputFieldName = el.attr('name');
+			
+			var parts = inputFieldName.split(/-/);
+			
+			var entity = parts[0];
+			var field  = parts[1];
+			
+			var className = null;
+			switch (entity) {
+				case "Person":
+				case "Editor":
+				case "Author":
+					className = "Person";
+					break;
+				case "Publication":
+				case "Book":
+				case "JournalArticle":
+					className = "Publication";
+					break;
+
+			}
+			
+			if (! className) return;
+			
+			
+				//alert(className + ' - ' +  field  + ' - ' + el.attr('value')  );
+			if (el.hasClass("suggestible-fillfield")) {
+				$.getJSON('/archmap2/api', 
+				{'request':'distinctFieldItems', 'className':className, 'fieldName':field, 'searchString':el.attr('value')}, suggestionCallback);
+			
+			}else {
+				$.getJSON('/archmap2/api', 
+				{'request':'search', 'className':className, 'fieldName':field, 'searchString':el.attr('value')}, suggestionCallback);
+			}
+		} 
+
+
+		
+		function suggestionCallback(json_data) {
+			//alert("hello suggestions: " + json_data);
+			var el = $(".selected");
+			var pos = el.position();
+			
+			var inputFieldName = el.attr('name');
+			
+			var parts = inputFieldName.split(/-/);
+			
+			var entity = parts[0];
+			    field  = parts[1];
+			
+			//alert(pos.left);
+			var popper = $(".suggestionChoices");
+			
+			if (! popper.length) {
+				//popper =  $("<ul></ul>").addClass("suggestionChoices").css("left", pos.left).css("top", pos.top+10);;
+				popper =  $("<ul></ul>").addClass("suggestionChoices").css("left",  pos.left).css("top", pos.top+10);
+				el.parent().append(popper);
+			} else {		
+				popper.empty();
+			}
+			
+			var li;
+			
+			$.each(json_data, function () {
+				//add the records to the appropriate UL 
+				var input = $(".selected");
+				
+				if (input.hasClass("suggestible-fillfield")) {
+					li = $('<li class="list-item">'+this[field]+ '</li>').click( function() {
+						input.attr("value", $(this).html());
+						input.removeClass("selected");
+						$(this).parent().remove();
+						
+					});
+				} else if (input.hasClass("suggestible-switchToItem")) {
+					li = $('<li id="'+this.id +'" class="list-item"> - - '+this.name + '</li>').click( function() {
+						var name = $(this).attr("name");
+						$(".form-fieldsets").empty().append('<h2>'+name+'</h2>');
+						$(this).parent().remove();
+					});
+						
+						
+				} else {
+					li = $('<li id="'+this.id +'" class="list-item">'+this.name + '</li>').click( function() {
+						input.attr("id", "Person_"+$(this).attr("id"));
+						input.attr("value", $(this).html());
+						input.removeClass("selected");
+						$(this).parent().remove();
+						
+					});
+				
+				
+				}
+				
+				popper.append(li);
+			});
+			
+		}
+		
+		
+		function setPubtype(pubtype) {
+			
+			var basicLabel = $("#basic_info").first().find("legend");
+			basicLabel.text(pubtype);
+			
+			
+			$(".EditedBook").hide();
+			$(".BookSection").hide();
+			$(".JournalArticle").hide('slow');
+			switch (pubtype) {
+			
+				case "Book":
+					
+					$(".BookSection").hide();
+					$(".Book").show('slow');
+					$(".chapters").show('slow');
+					break;
+					
+				case "Edited Book":
+					
+					$(".BookSection").hide();
+					$(".EditedBook").show('slow');
+					$(".chapters").show('slow');
+					break;
+					
+				case "Book Section":
+					$(".Book").hide('slow');
+					$(".BookSection").show('slow');
+					
+					break;
+					
+				case "Journal Article":
+					$(".Book").hide();
+					$(".BookSection").hide();
+					$(".JournalArticle").show('slow');
+					break;
+					
+			
+			}
+		}
+	</script>
+
+	<h2>New Publication</h2>
+	
+	<select id="pubtype" class="form-option" name="pubtype">
+		<option value="Book">Book</option>
+		<option value="EditedBook">Edited Book</option>
+		<option value="BookSection">Book Section</option>
+		<option value="JournalArticle">Journal Article</option>
+	</select>
+
+	
+	<div class="form-fieldsets">
+		
+		<fieldset id="basic_info" >
+			<legend>BasicInfo</legend>
+			<div>
+				<label>Title</label>	<input name="Publication-name"  class="suggestible-switchToItem"  />
+			</div>
+			<div>
+				<label>Year</label>	<input name="name" />
+			</div>
+
+			<div>
+				<label>Pages</label>	<input name="pages" class="number" />
+			</div>
+						
+		</fieldset>
+		
+		<fieldset class="EditedBook">
+			<legend>Editors</legend>
+				<div>
+					<label>Editor</label>	<input name="Editor-name"  class="suggestible"  /><button  class="remove-item">-</button>
+				</div>
+				<div class="form-button-set">
+					<button class="add-form-item">+</button>
+				</div>
+		</fieldset>
+	
+		<fieldset class="Book BookSection JournalArticle">
+			<legend>Authors</legend>
+				<div>
+					<label>Author</label>	<input name="Author-name" class="suggestible"  /><button  class="remove-item">-</button>
+				</div>
+				<div class="form-button-set">
+					<button class="add-form-item">+</button>
+				</div>
+		</fieldset>
+		
+	
+		
+		
+	
+		<fieldset class="BookSection">
+			<legend>Book</legend>
+				<div>
+					<label>Title</label>	<input name="name" class="name" />
+				</div>
+				
+				<div>
+					<label>Year</label>		<input name="year" class="year" />
+				</div>				
+		</fieldset>
+		
+		<fieldset class="BookSection">
+			<legend>Editors</legend>
+				<div>
+					<label>Editor</label>	<input name="Editor-name"  class="suggestible"  /><button  class="remove-item">-</button>
+				</div>
+				<div class="form-button-set">
+					<button class="add-form-item">+</button>
+				</div>
+		</fieldset>
+	
+
+		
+		<fieldset class="Book EditedBook BookSection">
+
+				<div>
+					<label>Publisher</label>	<input name="Publication-publisher" class="suggestible-fillfield" />
+				</div>
+				
+				<div>
+					<label>City</label>		<input name="Publication-location" class="suggestible-fillfield" />
+				</div>
+		
+		</fieldset>
+	
+		<fieldset class="JournalArticle">
+			<legend>Journal</legend>
+				<div>
+					<label>Journal Title</label>	<input name="Journal-name" class="suggestible" />
+				</div>
+				<div>
+					<label>Volume</label>		<input name="year" class="number" />
+				</div>				
+				<div>
+					<label>Issue</label>		<input name="year" class="number" />
+				</div>				
+		</fieldset>
+	
+	
+	
+		<fieldset class="All-Pubtypes">
+			<legend>Keywords</legend>
+				<div class="keyword-form-item">
+					<label>Keyword</label>	<input name="keyword" class="keyword" /><button  class="remove-item">-</button>
+				</div>
+				
+				<div class="form-button-set">
+					<button class="add-form-item">+</button>
+				</div>
+		</fieldset>
+	
+	
+		<fieldset class="Book EditedBook BookSection">
+			<legend>Cataloging</legend>
+				<div>
+					<label>ISBN</label>	<input name="ISBN-ISSN" class="ISBN-ISSN" />
+				</div>
+				
+				<div>
+					<label>LCCN</label>		<input name="LCCN" class="LCCN" />
+				</div>
+				
+				<div>
+					<label>CU Call Number</label>		<input name="CU-Call" />
+				</div>
+		</fieldset>
+
+		<fieldset class="Book EditedBook">
+			<legend>Chapters</legend>
+				<div>
+					<label>Chapter</label>	
+					<input class="keyword" /><button class="remove-item">-</button>
+				</div>
+				<div class="form-button-set">
+					<button class="add-form-item">+</button>
+				</div>
+		</fieldset>
+	</div>
+
+</form>

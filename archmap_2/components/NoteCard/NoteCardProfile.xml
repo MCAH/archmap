@@ -1,0 +1,52 @@
+<div class="profile relparent model-identity entity-NoteCard model_id-{model.id}">
+	
+	
+	<div class="body">
+		<div class="body-tray">
+		
+		
+			<h3>
+			<div class="fieldname-name">	
+			{model.name}
+			</div>
+			</h3>
+			
+			<div class="fieldname-descript">	
+				{model.descript}  
+			</div>
+			
+			<ul class="entity-Publication relationship relationship-primary"></ul>
+			
+			<div class="related-items-panel" >
+
+
+				<div class="related-item-section entity-Image">
+					<h4><a href="#"><span class="entitylabel">Images</span></a></h4>
+					<div>
+						<ul class="related-items-listview entity-Image"></ul>
+						
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+				</div>
+
+				<h4><a href="#"><span class="entitylabel">Buildings</span></a></h4>
+				<div>
+					<ul class="entity-Building"></ul>
+					<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+				</div>
+				
+				<h4><a href="#"><span class="entitylabel">Citations</span></a></h4>
+				<div>
+					<ul class="entity-Publication"></ul>
+					<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	<div class="footer">
+	created: {model.createdate}, last edited:  {model.editdate}
+	</div>
+
+</div>

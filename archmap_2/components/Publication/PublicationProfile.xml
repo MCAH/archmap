@@ -1,0 +1,202 @@
+<div class="profile relparent model-identity entity-Publication model_id-{model.id}">
+
+
+
+	
+	
+	<div class="body">
+
+
+		<div class="profile-basics">
+			 
+			 <h2>{model.name}</h2>
+			 <h3>
+			
+				<qrows select="p.*" from="person p, z_related_entities z" where="(z.from_entity_id=60 AND z.from_id={model.id} AND z.to_entity_id=50 AND z.relationship='author' AND p.id=z.to_id) || (z.to_entity_id=60 AND z.to_id={model.id} AND z.from_entity_id=50 AND z.relationship='author' AND p.id=z.from_id)">
+					<span class="profile-link model-identity entity-Person model_id-{model.id} relationship-author">
+						<span class="fieldname-name">{model.name},</span>
+					</span>
+				</qrows>
+	
+				<div>
+				 	 <span class="fieldname-date; padding-left:5;" >	
+									-{model.date}  
+					</span>, 
+				 	 <span class="fieldname-publisher; padding-left:5;" >	
+									-{model.publisher}  
+					</span>, 
+				 	 <span class="fieldname-location; padding-left:5;" >	
+									-{model.location}  
+					</span>
+				</div>
+			 </h3>
+			 
+			<div class="model_id-{model.id}">
+			 	
+			 	
+			 	
+			 	
+			</div>
+			
+			<div class="profile-edit_button">
+				edit
+			</div>
+				
+		
+		
+		</div>
+	
+
+
+
+		<div class="body-tray">
+
+				
+			
+			
+			<div class="related-items" >
+
+				<!-- items box -->
+				<div class="related-items-panel" >
+				
+				
+		<table>
+			<tr>
+				<td valign="top" width="180px">
+					<!-- IMAGES -->
+				
+			 		<img src="http://coverart.oclc.org/ImageWebSvc/oclc/+-+{model.WC_coverid}.jpg" />
+			 		<a href="http://www.worldcat.org/oclc/{model.OCLC}" style="font-size:9;">Worldcat Record</a>
+	
+				
+					
+					<div class="related-item-section entity-Image relationship relationship-map" style="min-width:160px;">
+						<h4>Map <a href="#"><span class="entitylabel">Images</span></a></h4>
+						<div>
+							<ul class="related-items-listview entity-Image relationship relationship-map"></ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+					
+					<div class="related-item-section entity-Image relationship relationship-source" style="min-width:160px;">
+						<h4>Source <a href="#"><span class="entitylabel">Images</span></a></h4>
+						<div>
+							<ul class="related-items-listview entity-Image relationship relationship-source"></ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+	
+						
+			
+			</td>			
+		 	
+		 	
+		 	
+		 	
+		 	<!-- COLUMN 2 -->
+
+		 	<td valign="top" width="400">
+		 	
+		 		<!-- CENTER -->
+						
+					<div class="related-item-section entity-NoteCard relationship relationship-primary">
+						<h4><a href="#"><span class="entitylabel">Note Cards</span></a></h4>
+						<div>
+							<ul class="entity-NoteCard relationship relationship-primary"> </ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+
+			 	<!--  MAP -->
+					<div id="Publication_map_{model.id}"  style="width:100%; height:400px;clear:both;"></div>
+
+					
+
+
+						 	<div class="fieldname-descript; padding-left:20;" >	
+								{model.descript}  
+							
+							</div>
+					
+					<div class="related-item-section entity-Publicationd relationship relationship-cited">
+						<h4><a href="#"><span class="entitylabel">Cited Publications</span></a></h4>
+						<div>
+							<ul class="entity-Publication  relationship relationship-cited"></ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+							
+	
+					<div class="related-item-section entity-Person">
+						<h4><a href="#"><span class="entitylabel">People</span></a></h4>
+						<div>
+							<ul class="related-items-listview entity-Person" ></ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+						
+			
+
+				</td>
+				
+				
+				
+				<!-- COLUMN 3 -->
+				<td valign="top">
+					<div class="related-item-section entity-Person relationship relationship-author">
+						<h4><a href="#"><span class="entitylabel">People</span></a>(as Author)</h4>
+						<div>
+							<ul class="related-items-listview entity-Person relationship relationship-author"></ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+				
+					<div class="related-item-section entity-Building">
+						<h4><a href="#"><span class="entitylabel">Buildings</span></a></h4>
+						<div>
+							<ul class="related-items-listview entity-Building"></ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+				
+					<div class="related-item-section entity-Place">
+						<h4><a href="#"><span class="entitylabel">Places</span></a></h4>
+						<div>
+							<ul class="related-items-listview entity-Place" ></ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+						
+
+					<div class="related-item-section entity-HistoricalEvent">
+						<h4><a href="#"><span class="entitylabel">Historical Events</span></a></h4>
+						<div>
+							<ul class="related-items-listview  entity-HistoricalEvent" ></ul>
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+				
+				</td>
+				</tr>
+				</table>
+
+
+
+
+
+				</div>
+
+				
+
+
+
+			</div>
+		</div>
+	</div>
+	*{model.id}
+	<div class="footer">
+	created: {model.createdate}, last edited:  {model.editdate}
+	</div>
+
+
+</div>

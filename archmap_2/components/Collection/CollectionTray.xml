@@ -1,0 +1,23 @@
+<div>
+	<script src="/archmap/appdev/components/Collection/CollectionTray.js">
+	</script>
+	
+	<div id="collections" class="collection">
+		
+		<div style="margin:20;margin-right:20;">
+			<h3>Collections</h3>
+			
+			
+			<ul id="collectionList" style="font-size:12;">
+				<li>
+					Main Buildings
+				</li>
+				<li>
+					Summer 2009
+				</li>
+			</ul>
+			
+			
+		</div>
+	</div>
+</div>

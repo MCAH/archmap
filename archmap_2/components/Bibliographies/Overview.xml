@@ -1,0 +1,198 @@
+<div>
+	<div class="page">
+	
+	
+		<div>
+			<qrows from="publication" where="pubtype {NE} 1000" start="0" step="10">
+				<div style="float:left;padding: 10;">
+					<div class="card">
+						 <div style="font-size:14;font-weight: bold;"><a href="/archstor/Publications/PublicationProfile/{model.id}">{model.name}</a></div>
+						 
+						 <div class="authors">
+						 <qrows from="person p, publication_authors pa" where="pa.pub_id={model.id} and pa.person_id=p.id">
+						 	{model.name}, 
+						 </qrows>
+						 </div>
+						 {model.date} 
+	
+					</div>
+				</div>
+			</qrows>
+		</div>
+		
+		
+	</div>
+	
+	
+	<div class="sidetray">
+		<div class="sidetray-content">
+		<h2>Bibliographies</h2>
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		Bibliographies<br />
+		</div>
+	</div>
+</div>

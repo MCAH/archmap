@@ -1,0 +1,14 @@
+<div>
+
+	<script src="/archmap/appdev/components/Timeline/Timeline.js">
+	</script>
+	
+	<div id="timeline_canvas" title="Timeline" style="position:relative;">
+		<div id="timelineBG" style="position:relative"> </div>
+		<ul id="timeline_ul"  style="position:relative">
+		</ul>
+	</div>
+	
+	
+	
+</div>

@@ -1,0 +1,55 @@
+<div class="profile relparent model-identity entity-Image model_id-{model.id}">
+		
+		<div id="image-view-{model.id}" style="height:80%;text-align:center;">
+		
+		</div>
+		
+		
+
+			<div style="height: 20%;padding-top:20;overflow-y:auto;" >
+				<div class="fieldname-descript">	
+					{model.title}  {model.id}
+				</div>
+				<div class="related-items-panel" >
+					<div class="related-item-section entity-Building relationship relationship-depiction">
+						<div>
+							<ul class="related-items-listview entity-Building relationship relationship-depiction"></ul>
+							
+						</div>
+					</div>
+	
+					<div class="related-item-section entity-Publication relationship relationship-source">
+						<div>
+							<ul class="related-items-listview entity-Publication relationship relationship-source"></ul>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+				<!-- 
+					<img style="max-width:100%;overflow:auto;" src="{model.url}" width="{model.width}"  />
+				
+
+
+	<table width="100%" border="1" >
+		<tr>
+			<td>
+				
+				
+				<div style="overflow-y: auto;">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Info
+			<div>
+				<button type="button" class="setBackgroundButton">Set As Background</button>
+			</div>
+			</td>
+		</tr>
+	
+	</table>
+	 -->
+
+</div>

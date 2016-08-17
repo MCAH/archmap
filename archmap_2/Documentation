@@ -1,0 +1,185 @@
+
+TODO
+---------------------------------
+
+saveChanges on inline edit. Get classname and id from the LI id.
+
+
+
+== 6/5/2011 =========================================================
+
+I am making different profile components. I just had a really great zinger in terms of component organization!
+
+It turns out that when you load a page in, if that page has javascript embedded, then that script is executed once you add the html to the dom!
+
+For example:
+
+	//using:
+	$.post('/archmap2/'+entity+'/'+entity+'Form', {componentOnly:"true", id:id}, getFormCallback);
+
+	// the calback will be like:
+	function getFormCallback(data) {
+	
+		//alert("got the form");
+		
+		var form = $(data);
+		$('#main-content').append(form);
+		
+... at this point any jQuery in the loaded html will simply run - including the on load stuff!!!
+
+
+
+
+
+
+== 6/1/2011 =========================================================
+
+
+I am experimenting with the way model relations are done. A limitation is imposed compared to the existing 'collection' system. 
+
+Rather than making collections, each item is a collection. Thus a building can be a collection of publications. This gets rid of the need for 
+model instances to have "default" collections, for example a  book having a new collection created called authors. 
+
+Thus the new z_model_relations table forgoes a collection_id and has instead a "relationship" varchar. A relationship is descriptive like a key word. 
+It could be 'brother' or 'Buildings like this" or the relationship could be null, which it probably would be most of the time. 
+
+THe relationship field could have an auto suggest popup of type fieldfill. 
+
+The descript field of the relation can be more of a justification of the item's inclusion. 
+For example, it could say "This earthquake event is important because the builders mentioned it, etc."
+
+
+
+
+
+
+
+
+
+== 5/30/2011 =========================================================
+
+Got refactoring done to allow actions to affect li's with specific ul's
+
+add, edit, remove from list done
+
+now to do delete from db. 
+
+also - auto suggest and 'switch-to-item' for buildings and publications...
+
+
+
+
+== 5/28/2011 =========================================================
+
+jQuery:
+	Now the page elements carry jQuery .data called 'ident' as well as has a class 'model_id-Essay-233'
+	
+	The class allows for selection of all representations of an item that has changed.  This way all the views can be updated in one swoop.
+	the ident is used for requests from the view to let the server know the entity and the id quickly. This could
+	also be grabbed from the class name I suppose.
+
+DB: 
+	- added field to all model tables 'entity_id' and set defaults to the ids.
+	
+PHP:
+	- GenericRecord: when instantiating a model with a row, the constructor now checks if there is a numeric id in the row
+					 if so, then it gets the row from the db and then merges with the request row.
+					 
+	- GenericRecord: on insert, it gets the row as a refresh from the db. In this case to include the default entity_id
+
+
+== 5/27/2011 =========================================================
+
+
+TEMP_IDs AS A MEANS OF TRACKING AN HTML ELEMENT WITH A SERVER RESPONSE
+
+Objects passed to the server for saving should be able to have temporary ids. These would be non-numeric. 
+This way, the server can pass a response back with the temporary id, an id that is often for the html element that spanned the request.
+
+For example, adding a new list item to a list of Essays. When hitting save, the object goes form an LI element with the temp_id. 
+This temp_id is then included in the response even along with the permanent id generated when the object was inserted into the database.
+With the temp_id in the response, the LI is found with $("#temp_id-98950473857") and then that element's id is set to the object's new id.
+
+This means that the check for insert vs. update in the GenericRecord is not about whether an id exists, but if the id is numeric or not.
+During the save operation, at the decision point, if there is a non-numeric id, it is moved to temp_id in the attributes. This attr is not
+saved to the table since there is no field for it, but it is included in the asJSON encoding of the object by the server.
+
+1. make sure an object can be created with a non numeric id
+2. have the id transfered to temp_id in attrs (probably in saveChanges)
+3. have the client check the incoming object. If it has a temp id, use it to track. If not use the real id to find the item.
+
+
+
+== 5/17/2011 =========================================================
+
+
+
+
+-- Deep Zoom (seadragon) -------------
+Eureka! Discovered Deep Zoom javascript player and the GIT deepzoom.php for creating the tiles. 
+
+
+Example: http://learn.columbia.edu/archmap_2/media/deepzoom_php5.2/tests/index.php
+
+The player is at:
+ 	 <script type="text/javascript"  src="http://seadragon.com/ajax/0.8/seadragon-min.js"> </script>
+     
+     <script type="text/javascript">
+        var viewer = null;
+        
+        function init() {
+            viewer = new Seadragon.Viewer("container");
+            viewer.openDzi("dest/1063_00001_w.xml");
+        }
+        
+        Seadragon.Utils.addEvent(window, "load", init);
+    </script>
+
+The php content creator is downloaded from : https://github.com/openzoom/deepzoom.php
+
+	set_include_path(implode(PATH_SEPARATOR, array(
+	    realpath('../lib'),
+	    get_include_path(),
+	)));
+	require 'Oz/Deepzoom/ImageCreator.php';
+	$converter = new Oz_Deepzoom_ImageCreator();
+	$converter->create( realpath('source/1063_00001_w.jpg'), 'dest/1063_00001_w.xml' );
+     
+
+I was surprised by the speed of the tile creation. In the demo, using a 2000px image of Amiens, it prepares and displays the image in realtime. The zooming is super smooth and snappy too!
+
+Both the player and the content creator are lightweight javascript and php (using GD library). 
+
+
+
+
+
+-- ImageZoom ---------
+I also found a jQuery plugin for faux zooming. Although it does not use tiles it is a fun and effective way to view a smaller image and a full-sized one in a magnifying glass.
+	
+	<script type="text/javascript" src="/archmap_2/jQuery/plugins/imageZoom.js"></script>
+	
+	$('#imageMaster').imageZoom({
+		small: '/archmap/media/buildings/001000/1063/images/700/1063_00336_w.jpg',
+		original: '/archmap/media/buildings/001000/1063/images/full/1063_00336_w.jpg',
+		viewpoint: {
+			width: 250,
+			height: 175
+			}
+		});
+
+
+
+
+
+
+=========================================================
+
+------------ Server Environment ---------------
+
+The application dir is archmap_2
+
+the htaccess maps archmap2 to archmap_2
+
+If needs a directory or url change, then in main.php and api.php (the two root pages) change appropriately. Ideally no other files will need be changed.
+

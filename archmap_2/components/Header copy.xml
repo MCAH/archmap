@@ -1,0 +1,151 @@
+<div class="header-wrapper">
+   
+   <span class="header-sitetitle">ArchMap</span>
+   
+   <ul class="header-menu">
+	   <li>
+	   		<a href="/archstor/HomeScreen">Buildings</a> 
+	   </li>
+	   <li>
+	   		<a href="/archstor/HistoricalMaps">Historical Maps</a>
+	   </li>
+	   <li>
+	   		<a href="/archstor/HistoricalMaps">Photographs</a>
+	   </li>
+	   <li>
+	   		<a href="/archstor/StructuralSimulation">Models</a>
+	   </li>
+	   <li>
+	   		<a href="/archstor/Essays">Essays</a>
+	   </li>
+	   <li>
+	   		<a href="/archstor/Bibliographies/Overview">Bibliographies</a>
+	   </li>
+   </ul>
+
+   <div id="loginbox" >
+   		<a class="thisUserName" href=""></a>
+   		<a id="loginLink" class="header-button" href="javascript:popupLoginPanel();">Login</a>
+   </div>
+   
+   <div class="header-searchbox">
+   		<Search.SearchBox />
+   </div>
+   
+   <script type="text/javascript">
+   		var thisUser;
+   		var dialogboxHTML;
+   
+   		$(function() {
+   			setupLoginDialog();	
+			thisUser = $.jsper.get('thisUser');
+			setThisUser(thisUser);
+			if (thisUser) {
+	   			$.getJSON( "/archstor/Request/User/Tickle{amp}session_id="+thisUser["session_id"], function(data) {
+    				var response = data[0];
+					if (response["result"] != "SUCCESS") {
+						logoutThisUser();
+					}							   				
+	   			});	   			
+			} else {
+			
+			}
+   		});
+   		
+   		function setThisUser(user) {
+  		 	$.jsper.set('thisUser', user);
+			thisUser = user;
+
+			$("#loginLink").html("Logout");
+			$("#loginLink").attr("href", "javascript:submitLogout();");
+
+			$(".thisUserName").html(thisUser["name"]);
+			$(".thisUserName").attr("href", "/archstor/People/Person/"+thisUser["id"]);
+			
+			
+			$("#loginDialog").dialog("close");
+   		}
+   		
+   		
+   		function logoutThisUser() {
+			$(".thisUserName").html("");
+			$(".thisUserName").attr("href", "");
+
+			$("#loginLink").attr("href", "javascript:popupLoginPanel();");
+			$("#loginLink").html("Login");
+   		}
+   		
+   		
+   		
+   		function setupLoginDialog() {
+   			var opts = {
+   				modal: true,
+   				title: "LOGIN",
+   				autoOpen: false,
+   				show: "fade",
+				hide: "fade",
+				buttons: {
+					Login: submitLogin,
+					Cancel: function() {
+						$( this ).dialog( "close" );
+					}
+				}
+   			};
+   			$("#loginDialog").dialog(opts);
+   		}
+   		
+   		function popupLoginPanel() {
+   			if (dialogboxHTML) $("#loginDialog").html(dialogboxHTML);
+   			$("#loginDialog").dialog("open");
+   			$.getJSON( "/archstor/Request/Users", function(data) {
+     				$.each(data, function(i,item){
+   					$("#loginSelect").append('<option>'+item["name"]+'</option>');
+   				});
+   			});
+   		}
+   		function submitLogin() {
+   			var name = $("#loginSelect").val()
+   			var pword = $("#passwordField").attr("value");	
+   			var url = "/archstor/Request/User/Login{amp}name="+name+"{amp}pword="+pword;
+   			$.getJSON( url, function(data) {
+   				var user = data[0]; 			
+    			setThisUser(user);				
+   				dialogboxHTML = $("#loginDialog").html();
+    			$("#loginDialog").empty();
+    			$("#loginDialog").html("Thankyou for logging in " + user["name"] + "!");
+   			});   		
+   		}
+   		
+  		function submitLogout() {
+   			var url = "/archstor/Request/User/Logout{amp}session_id="+thisUser["session_id"];
+   			$.getJSON( url, function(data) {
+   				var user = data[0];
+    			logoutThisUser();
+    		});
+   		}
+   </script>
+   
+   
+   
+   <!-- will not be visible when page is ready -->
+   <!--
+   	<div id="loginDialog">
+   		<form id="loginPanel" title="Login">
+   			<div>
+   				Name
+   				<select id="loginSelect" name="name">
+   				</select>
+   			</div>
+   			<div>
+   				Password
+   				<input id="passwordField" type="text" name="pword" />
+   			</div>
+   		
+   		</form>
+   	</div>
+   	-->
+   <!-- will not be visible when page is ready -->
+
+
+
+</div>

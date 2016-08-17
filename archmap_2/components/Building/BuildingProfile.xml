@@ -1,0 +1,144 @@
+<div class="profile model-identity relparent entity-Building model_id-{model.id}">
+			
+		
+		<table>
+		
+			<tr>
+				<td valign="top">
+					<!-- 2 MAPS -->
+					<div style="position: relative; width:100%;">
+						<div id="Building_map_region_{model.id}" class=" map-view map-canvas" style="width:200px; height:150px;"></div>
+						
+						<div style="position: absolute;top:5;right: 5;">
+							<input class="search map-search-field" style="width:150;color: gray;opacity:.75;" value="search" />
+						</div>				
+					</div>
+					<div id="Building_map_detail_{model.id}" class="map-view  map-canvas" style="width:200px; height:300px;"></div>
+					<button class="map-movemarker" type="button">Place Building Here</button>
+				
+				</td>
+				
+				<td valign="top" width="400px" style="min-width:400px; height:300px; overflow-y:auto;">
+					<h3>{model.name}</h3>
+					{model.beg_year}
+					<div class="fieldname-descript" style="font-size: 12; height:250px; overflow-y:auto;">	
+						{model.descript}  
+					</div>
+					
+					<!-- UNITY -->
+					<div id="unityPlayer_{model.id}">
+						<div class="missing">
+							<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+								<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="400" height="300" />
+							</a>
+						</div>
+					</div>
+
+				</td>
+				
+				
+				<td valign="top">
+				
+					<div class="related-item-section entity-Image relationship relationship-depiction">
+						<h4><a href="#"><span class="entitylabel">Images</span></a></h4>
+						<div>
+							<ul class="related-items-listview entity-Image relationship relationship-depiction"></ul>
+							
+							<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+						</div>
+					</div>
+
+				
+				
+				</td>	
+			</tr>		
+		
+		
+		</table>
+		
+		
+			
+
+			
+
+
+	<div class="body">
+		<div class="body-tray">
+						
+			
+			
+			
+			
+			
+			
+			
+			<!-- related items -->
+			<div class="related-items-panel" >
+					
+				<div class="related-item-section entity-NoteCard">
+					<h4><a href="#"><span class="entitylabel">Note Cards</span></a></h4>
+					<div>
+						<ul class="related-items-listview entity-NoteCard"> </ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+				</div>
+					
+	
+				<div class="related-item-section entity-Publication">
+					<h4><a href="#"><span class="entitylabel">Bibliography</span></a></h4>
+					<div>
+						<ul class="related-items-listview entity-Publication"></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+				</div>
+					
+				<div class="related-item-section entity-HistoricalObject">
+					<h4><a href="#"><span class="entitylabel">HistoricalObjects</span></a></h4>
+					<div>
+						<ul class="related-items-listview entity-HistoricalObject"></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+				</div>
+						
+					
+				<div class="related-item-section entity-Building">
+					<h4><a href="#"><span class="entitylabel">Buildings</span></a></h4>
+					<div>
+						<ul class="related-items-listview entity-Building"></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+				</div>
+					
+				<div class="related-item-section entity-Person">
+					<h4><a href="#"><span class="entitylabel">People</span></a></h4>
+					<div>
+						<ul class="related-items-listview entity-Person" ></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+				</div>
+					
+				<div class="related-item-section entity-HistoricalEvent">
+					<h4><a href="#"><span class="entitylabel">Historical Events</span></a></h4>
+					<div>
+						<ul class="related-items-listview entity-HistoricalEvent" ></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+				</div>
+						
+		
+			</div>
+
+			
+			
+			
+			
+			
+		</div>
+	</div>
+	
+	<div class="footer">
+	:{model.lat}: created: {model.createdate}, last edited:  {model.editdate}
+	</div>
+	
+
+</div>

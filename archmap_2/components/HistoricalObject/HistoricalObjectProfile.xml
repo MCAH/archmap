@@ -1,0 +1,82 @@
+<div class="profile model-identity relparent entity-HistoricalObject model_id-{model.id}">
+	
+	<div class="profile-header model-identity entity-HistoricalObject model_id-{model.id}">
+		<div class='profile-title entity-HistoricalObject model_id-{model.id} fieldname-name'>
+			{model.name}
+		</div>
+		
+		<div class="profile-close_button">
+			x
+		</div>
+	</div>
+	
+	<div class="body">
+		<div class="body-tray">
+						
+			<div class="fieldname-descript">	
+				{model.descript}  
+			</div>
+			
+			
+			
+			
+			
+			
+			<!-- related items -->
+				<div class="related-items-panel" >
+					
+					<h4><a href="#"><span class="entitylabel">Note Cards</span></a></h4>
+					<div>
+						<ul class="entity-NoteCard"> </ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+					
+	
+					<h4><a href="#"><span class="entitylabel">Bibliography</span></a></h4>
+					<div>
+						<ul class="entity-Publication"></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+						
+					
+					<h4><a href="#"><span class="entitylabel">Buildings</span></a></h4>
+					<div>
+						<ul class="entity-Building"></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+					
+					<h4><a href="#"><span class="entitylabel">Historical Objects</span></a></h4>
+					<div>
+						<ul class="entity-HistoricalObject" ></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+		
+					
+					<h4><a href="#"><span class="entitylabel">People</span></a></h4>
+					<div>
+						<ul class="entity-Person" ></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+					
+					<h4><a href="#"><span class="entitylabel">Historical Events</span></a></h4>
+					<div>
+						<ul class="entity-HistoricalEvent" ></ul>
+						<li><button  type="button" class="ul-button2 func-addItem">+</button> <button  type="button" class="ul-button2 func-deleteItem">-</button></li>
+					</div>
+		
+				</div>
+
+			
+			
+			
+			
+			
+		</div>
+	</div>
+	
+	<div class="footer">
+	:{model.lat}: created: {model.createdate}, last edited:  {model.editdate}
+	</div>
+	
+
+</div>

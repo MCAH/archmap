@@ -1,0 +1,226 @@
+<div id="content-body-layout">
+					<script type="text/javascript">
+						$(document).ready(function(){
+							/*
+							$( "#my-biblio" ).sortable({ handle: ".handle" })
+  								.selectable()
+    							.find( "li" )
+      							.prepend( '<div class="handle"><span class="ui-icon ui-icon-carat-2-n-s"></span></div>' );
+							*/
+							
+							$( "#my-biblio, #other-biblio" ).sortable();
+							
+							$(".function-menu-button").click(menuButtonClicked);
+							
+							inlineEditing_init();
+							
+							<!-- get MyBibliographies from the server -->
+							$.getJSON('/archmap2/api', {'request':'getAuthorsRootItems', 'author_id':363}, jsonCallback);
+							
+						});
+						
+						function jsonCallback(data) {
+							<!-- data has come in! -->
+							var el;
+							
+							$.each(data, function () {
+								<!-- add the records to the appropriate UL -->
+								el = $('<li id="'+this.id +'" class="list-item">'+this.name + '</li>').mousedown(select_item).dblclick(inlineEditing_edit).blur(deselect_item2);
+								$("#my-biblio").append(el);
+							});
+							
+						}
+						
+						
+						function menuButtonClicked() {
+							var el = $('<li class="list-item">New Item</li>').mousedown(select_item).dblclick(inlineEditing_edit).blur(deselect_item2);
+							$("#my-biblio").append(el);
+							
+						}
+						
+						function inlineEditing_init() {
+							$(".list-item").mousedown(select_item);
+							$(".list-item").dblclick(inlineEditing_edit);
+							//$(".list-item").draggable();
+							
+							
+						}
+						function set_inlineEditing(el) {
+							el.mousedown(select_item).dblclick(inlineEditing_edit).blur(deselect_item);
+						}
+						
+						function inlineEditing_edit() {
+							if (this.inEdit) return;
+							this.inEdit = true;
+							var str = $(this).text().trim();
+							var w = $(this).innerWidth();
+							this.originalHTML=str;
+							
+							$(this).empty();
+							$("<input/>")
+								.attr('value', str)
+								.blur(inlineEditing_save)
+								.keypress(inlineEditing_keypress)
+								.css('width', 150)
+								.appendTo(this)
+								.focus();
+						}
+						
+						function inlineEditing_keypress(e) {
+						
+							if (!e.which) inlineEditing_restore(this.parentNode);
+							if (event.which == '13') {
+								$(this).blur();
+							 	
+							}
+						}
+						
+						
+						// SAVE
+						function inlineEditing_save () {
+							
+							var id, fieldName, p;
+							p = this.parentNode;
+							if (p.originalHTML == this.value) {
+								inlineEditing_restore(p);
+							}
+							
+							// temp
+							p.originalHTML = this.value;
+							inlineEditing_restore(p);
+							
+							
+							
+							$.getJSON('/archmap2/api', 
+								{'request':'saveChanges', 'classname':'Essay', 'id':p.id, 'name':this.value}, jsonCallback_Save);
+								
+						}
+						function jsonCallback_Save(data) {
+							//alert("saved");
+						}
+						
+						
+						
+						function inlineEditing_restore (el) {
+							$(el).html(el.originalHTML);
+							el.inEdit = false;
+						}
+						
+						function select_item() {
+						
+							if ($(this).hasClass("selected")) return;
+						
+							$(".selected").each( function () {
+								//deselect_item2($(this));
+								if ($(this).find("input")) {
+									$(this).find("input").blur();
+								}
+								
+							});
+							
+							$(".selected").removeClass('selected');
+
+							$(this).addClass("selected");
+						}
+						
+						function deselect_item1(el) {
+							alert("deselect1: " + el.html());
+							
+							
+
+						}
+						function deselect_item2(el) {
+							alert("deselect2: " + el.html());
+							
+
+						}
+						
+					</script>
+
+
+	<div id="content-body-layout-wrapper">
+	
+		<div id="primary-nav">
+			<div id="primary-nav-content">
+				
+				MY ESSAYS
+				
+				<ul id="my-biblio">
+					
+				
+				</ul>
+				
+				
+				OTHER ITEMS
+				
+				<ul id="other-biblio">
+					
+				
+					
+					<li class="list-item">
+						Meaning in Gothic
+					</li>
+					<li class="list-item">
+						Crossroads
+					</li>
+					<li class="list-item">
+						Production and Decay
+					</li>
+				
+				</ul>
+			</div>
+			<div id="function-menu">
+				<div id="add-biblio" class="function-menu-button">
+					+
+				</div>
+			</div>
+		</div>
+		<div id="secondary-nav">
+			
+			<div id="secondary-nav-content">
+				
+	
+				
+					<qrows from="publication" where="pubtype {NE} 1000" start="0" step="10">
+							<div class="cardsmall">
+								 <div class="title" >
+								 	<a href="/archmap2/Publications/PublicationProfile/{model.id}">{model.name}</a>
+								 </div>
+								 
+								 <div class="authors">
+									 <qrows from="person p, publication_authors pa" where="pa.pub_id={model.id} and pa.person_id=p.id">
+									 	{model.name}, 
+									 </qrows>
+								 </div>
+								 {model.date} 
+								 
+								 <div class="node-holder">
+								 	
+								 </div>
+			
+							</div>
+					</qrows>
+						
+	
+			</div>
+		</div>
+	
+		
+	
+		<div id="main-content">
+			<h1> {model.name}</h1>
+		
+		
+		
+			<div id="sortbin">
+				<h2><a href="/archmap2/Bibliographies/Overview">Note Cards</a></h2>
+				<div id="sortbin-content">
+				
+				</div>
+		</div>
+		</div>
+
+	</div>
+
+</div>
+

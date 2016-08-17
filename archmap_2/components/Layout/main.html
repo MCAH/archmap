@@ -1,0 +1,63 @@
+
+	 <script type="text/javascript">
+		
+		$(function(){
+		
+			var choices = ["brickwall","leu_wall","faces"];
+			var random = Math.floor(Math.random()*choices.length);
+			$("div#header div.padding").css('background-image','url(/archmap/appdev/public/style/bgs/'+choices[random]+'.jpg)')
+		
+			$.Archmap.build(1); // 1 being a collection id
+			$.Archmap.enableBigImages();
+			
+			$("#map-container").css('height',($(window).height()-105)+"px");
+			$("#map_box").css('height',$("#map-container").height()+"px");
+			
+			var list = $.Archmap.addComponent("ListComponent","div#sidebar-list ul");
+			var map = $.Archmap.addComponent("MapComponent","div#map_box");
+			var search = $.Archmap.addComponent("SearchComponent","div#image_result_container");
+			search.setInput("div#searchbox");
+			search.setStage("div#image_result_box ul");
+			var timeline = $.Archmap.addComponent("TimelineComponent","div#timeline-container");
+			timeline.setStage("div#timeline ul");
+			var courtauld = $.Archmap.addComponent("CourtauldComponent","div#courtauld_container");
+			courtauld.setStage("div#courtauld ul");
+			
+		});
+		
+	 </script>
+	 <div id="notices">
+	  <div class="padding">
+	  </div>
+	 </div>
+	 <div id="stage">
+	  <div id="sidebar">
+	   <div id="sidebar-inner">
+	    <div id="sidebar-list">
+	     <ul><li><img src="/archmap/appdev/public/style/loading-small.gif"/></li></ul>
+	    </div>
+	   </div>
+	  </div>
+	  <div id="map-container">
+	   <div id="map_box">
+	   </div>
+	   <div id="timeline-container">
+	    <div id="timeline">
+	     <ul></ul>
+	    </div>
+	   </div>
+	  </div>
+	  <div id="image_result_container">
+	   <div id="image_result_box">
+	    <ul class="clear"></ul>
+	   </div>
+	  </div>
+	  <div id="courtauld_container">
+	   <div id="courtauld">
+	    <ul class="clear"></ul>
+	   </div>
+	  </div>
+	 </div> <!-- end of the stage -->
+	 <div id="footer">	
+	 </div> <!-- end of the footer -->
+	</body>

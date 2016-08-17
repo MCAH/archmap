@@ -1,0 +1,40 @@
+<div>
+	<script src="/archmap/appdev/components/Collection/CollectionTray.js">
+	</script>
+
+	<style>
+		.collection {
+			background-image:url(http://www.learn.columbia.edu/archmap/media/interface/backgrounds/CollectionsBackground.png); 
+			position:absolute; 
+			z-index:100;
+			opacity:.8;
+			top:50;
+			left:-200;
+			height:586;
+			width:300;
+			
+			
+		
+		}
+	</style>
+	
+	<div>
+		<qrows from="publication" where="pubtype {NE} 1000" start="0" step="100">
+			<div style="float:left;padding: 10;">
+				<div class="ui_dialog-monograph" style="position: relative; width: 300; height: 200;">
+					 <div style="font-size:14;font-weight: bold;">{model.name}</div>
+					 
+					 <div class="authors">
+					 <qrows from="person p, publication_authors pa" where="pa.pub_id={model.id} and pa.person_id=p.id">
+					 	{model.name}, 
+					 </qrows>
+					 </div>
+					 {model.date} 
+
+				</div>
+			</div>
+		</qrows>
+	</div>
+	
+	
+</div>

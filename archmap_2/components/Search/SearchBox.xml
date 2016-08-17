@@ -1,0 +1,15 @@
+<form>
+
+	<input type="text" />
+	
+	<select>
+		<option>Collection</option>
+		<option>Building</option>
+		<option>Place</option>
+		<option>Publication</option>
+		<option>Person</option>
+		<option>Image</option>
+		<option>Keyword</option>
+	</select>
+</form>
+
